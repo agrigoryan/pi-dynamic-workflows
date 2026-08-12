@@ -7,19 +7,20 @@ Modeled on [Anthropic's dynamic workflows in Claude Code](https://claude.com/blo
 ## Install
 
 ```bash
-git clone <this-repo> && cd pi-dynamic-workflows && npm install
+pi install git:github.com/agrigoryan/pi-dynamic-workflows
 ```
 
-Then register the extension, either per-invocation:
+Then `/reload` in a running pi session (new sessions pick it up automatically). To try it once without installing:
 
 ```bash
-pi -e /path/to/pi-dynamic-workflows/extensions/workflow.ts
+pi -e git:github.com/agrigoryan/pi-dynamic-workflows
 ```
 
-or permanently in `~/.pi/agent/settings.json`:
+For development, clone and load from source:
 
-```json
-{ "extensions": ["/path/to/pi-dynamic-workflows/extensions/workflow.ts"] }
+```bash
+git clone https://github.com/agrigoryan/pi-dynamic-workflows && cd pi-dynamic-workflows && npm install
+pi -e ./extensions/workflow.ts
 ```
 
 ## Use
