@@ -24,7 +24,8 @@
     "lint": "biome lint .",
     "typecheck": "tsc --noEmit",
     "test": "npm run check && npm run typecheck && npm run test:unit",
-    "test:unit": "tsx --test tests/*.test.ts"
+    "test:unit": "tsx --test tests/*.test.ts",
+    "test:live": "RUN_LIVE_E2E=1 tsx --test tests/live-e2e.test.ts"
   },
   "keywords": [
     "pi-package",

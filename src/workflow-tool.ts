@@ -11,7 +11,7 @@ import {
 } from "./display.js";
 import { newRunId, RunJournal } from "./journal.js";
 import { normalizeScript, parseWorkflowScript } from "./parser.js";
-import { runWorkflow, type WorkflowRunResult } from "./runtime.js";
+import { runWorkflow, type WorkflowRunnerLike, type WorkflowRunResult } from "./runtime.js";
 
 const RESULT_PREVIEW_LIMIT = 48_000;
 const WIDGET_KEY = "dynamic-workflow";
@@ -46,6 +46,8 @@ const parametersSchema = Type.Object({
 
 export interface WorkflowToolOptions {
   concurrency?: number;
+  /** Override how subagents are executed (tests / embedders). Default: a real SubagentRunner. */
+  runnerFactory?: (ctx: ExtensionContext) => WorkflowRunnerLike;
 }
 
 export function createWorkflowTool(
@@ -112,12 +114,14 @@ export function createWorkflowTool(
         }
       };
 
-      const runner = new SubagentRunner({
-        cwd: ctx.cwd,
-        modelRegistry: ctx.modelRegistry,
-        model: ctx.model,
-        thinkingLevel: ctx.thinkingLevel,
-      });
+      const runner =
+        options.runnerFactory?.(ctx) ??
+        new SubagentRunner({
+          cwd: ctx.cwd,
+          modelRegistry: ctx.modelRegistry,
+          model: ctx.model,
+          thinkingLevel: ctx.thinkingLevel,
+        });
 
       let result: WorkflowRunResult;
       try {
