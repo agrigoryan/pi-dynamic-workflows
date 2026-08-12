@@ -1,0 +1,65 @@
+{
+  "name": "pi-dynamic-workflows",
+  "version": "0.1.0",
+  "description": "Claude-Code-style dynamic workflows for the pi coding agent: deterministic JavaScript orchestration scripts that fan work out across subagents, with structured outputs, token budgets, and journaled resume.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "extensions/",
+    "src/",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "check": "biome check .",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run check && npm run typecheck && npm run test:unit",
+    "test:unit": "tsx --test tests/*.test.ts"
+  },
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-coding-agent",
+    "workflow",
+    "dynamic-workflows",
+    "orchestration",
+    "subagents",
+    "multi-agent",
+    "claude-code"
+  ],
+  "pi": {
+    "extensions": [
+      "extensions/workflow.ts"
+    ]
+  },
+  "author": "Aram Grigoryan",
+  "license": "MIT",
+  "dependencies": {
+    "acorn": "^8.18.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": ">=0.84.0",
+    "@earendil-works/pi-coding-agent": ">=0.84.0",
+    "@earendil-works/pi-tui": ">=0.84.0",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@earendil-works/pi-ai": "0.84.1",
+    "@earendil-works/pi-coding-agent": "0.84.1",
+    "@earendil-works/pi-tui": "0.84.1",
+    "tsx": "^4.20.0",
+    "typebox": "^1.3.13",
+    "typescript": "^5.9.0"
+  }
+}
